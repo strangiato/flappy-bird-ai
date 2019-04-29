@@ -24,7 +24,6 @@ def show_debug(img, bird_location, pipe_location, last_time):
                 cv2.FONT_HERSHEY_SIMPLEX, .8, (0, 0, 255), 2, cv2.LINE_AA)
     # show window
     cv2.imshow("OpenCV/Numpy normal", img)
-    # print("fps: {}".format(1 / (time.time() - last_time)))
     # Press "q" to quit
     if cv2.waitKey(25) & 0xFF == ord("q"):
         cv2.destroyAllWindows()

@@ -5,7 +5,6 @@ import numpy as np
 
 def capture_screenshot(monitor):
     with mss.mss() as sct:
-        # Part of the screen to capture
-
+        # capture screen and store as an numpy array
         img = np.array(sct.grab(monitor))
         return img
