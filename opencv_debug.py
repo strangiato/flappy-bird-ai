@@ -12,6 +12,7 @@ def show_debug(img, bird_location, pipe_location, last_time):
 
     # draw what the cv finds
     img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+
     cv2.circle(img, bird_location, 25, (0, 0, 255), 2)
     if pipe_location != (450, 350):
         cv2.rectangle(img, pipe_location, (pipe_location[0] + 32,

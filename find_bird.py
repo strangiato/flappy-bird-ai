@@ -15,7 +15,7 @@ def get_bird_location(img):
     mask = cv2.inRange(img, lower_red, upper_red)
     points = cv2.findNonZero(mask)
     # asume its centered if you cant find it
-    avg = (170, 50)
+    avg = (50, 0)
 
     if points is not None:
         # avg points to get the center
