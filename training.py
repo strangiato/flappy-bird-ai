@@ -2,22 +2,18 @@ import keras
 from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.optimizers import SGD
+from keras import backend
 from bird import Bird
 import numpy as np
 import random
 
 
-def new_model():
-    model = Sequential()
-    model.add(Dense(7, activation='sigmoid', input_dim=3))
-    model.add(Dense(1, activation='sigmoid'))
-    return model
-
-
 def init_models(generation_size):
     population = []
     for i in range(generation_size):
-        model = new_model()
+        model = Sequential()
+        model.add(Dense(7, activation='sigmoid', input_dim=3))
+        model.add(Dense(1, activation='sigmoid'))
         population.append(Bird(model, 0))
     return population
 
@@ -63,25 +59,23 @@ def breed(population):
     # find 50 best birds
     old_population = sorted(
         population, key=lambda b: b.fitness, reverse=True)
-    old_population = old_population[:24]  # hardcoded todo fix
+    # old_population = old_population[:24]  # hardcoded todo fix
     for bird in old_population:
         print(bird.fitness)
     # reset population to add children to it
     population = []
+    raw_weights = []
     for chad in range(4):
         for stacy in range(6):
             child1, child2 = crossover_models(
                 old_population[chad].model, old_population[chad + stacy].model)
+            raw_weights.append(mutate(child1))
+            raw_weights.append(mutate(child2))
 
-            model1 = new_model()
-            model1.set_weights(mutate(child1))
-            model2 = new_model()
-            model2.set_weights(mutate(child2))
-            population.append(Bird(model1, 0))
-            population.append(Bird(model2, 0))
-            # skip over the one you just mated with
-    population.append(old_population[0])
-    population.append(old_population[1])
-    population.append(old_population[2])
-    population.append(old_population[3])
+    for bird in old_population[:4]:
+        population.append(bird)
+
+    for index, bird in enumerate(old_population[4:]):
+        bird.model.set_weights(raw_weights[index])
+        population.append(bird)
     return population
