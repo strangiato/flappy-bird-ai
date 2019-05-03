@@ -31,29 +31,28 @@ def crossover_models(model1, model2):
 def crossover_models_inner(model1, model2):
     rng = round(random.uniform(0, 4))
 
-    
     if rng == 0:
         child1 =  np.asarray([np.asarray(
-                [np.concatenate((model2.get_weights()[0][0][:1], model1.get_weights()[0][0][1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:1], model1.get_weights()[0][1][1:]), axis=None), np.concatenate((model2.get_weights()[0][2][:1] + model1.get_weights()[0][2][1:]), axis=None)]), 
-                model1.get_weights()[1], np.asarray([np.concatenate((model2.get_weights()[2][:1] + model1.get_weights()[2][1:]), axis=None)]), model1.get_weights()[3]])
-
+                [np.concatenate((model2.get_weights()[0][0][:1], model1.get_weights()[0][0][1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:1], model1.get_weights()[0][1][1:]), axis=None), np.concatenate((model2.get_weights()[0][2][:1], model1.get_weights()[0][2][1:]), axis=None)]), 
+                model1.get_weights()[1], np.asarray(np.concatenate((model2.get_weights()[2][:1], model1.get_weights()[2][1:]), axis=None).reshape((5,1))), model1.get_weights()[3]])
+        
         child2 = np.asarray([ np.asarray(
-                    [np.concatenate((model1.get_weights()[0][0][:1], model2.get_weights()[0][0][1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:1], model2.get_weights()[0][1][1:]), axis=None), np.concatenate((model1.get_weights()[0][2][:1] + model2.get_weights()[0][2][1:]), axis=None)]), 
-                model2.get_weights()[1], np.asarray([np.concatenate((model1.get_weights()[2][:1], model2.get_weights()[2][1:]), axis=None)]), model2.get_weights()[3]])
+                    [np.concatenate((model1.get_weights()[0][0][:1], model2.get_weights()[0][0][1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:1], model2.get_weights()[0][1][1:]), axis=None), np.concatenate((model1.get_weights()[0][2][:1], model2.get_weights()[0][2][1:]), axis=None)]), 
+                model2.get_weights()[1], np.asarray(np.concatenate((model1.get_weights()[2][:1], model2.get_weights()[2][1:]), axis=None).reshape((5,1))), model2.get_weights()[3]])
     elif rng > 0 and rng < 4:
         child1 = np.asarray([np.asarray(
                 [np.concatenate((model1.get_weights()[0][0][:rng], model2.get_weights()[0][0][rng:rng+1], model1.get_weights()[0][0][rng + 1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:rng], model2.get_weights()[0][1][rng:rng+1], model1.get_weights()[0][1][rng + 1:]), axis=None), np.concatenate((model1.get_weights()[0][2][:rng], model2.get_weights()[0][2][rng:rng+1], model1.get_weights()[0][2][rng + 1:]), axis=None)]), 
-                model1.get_weights()[1], np.asarray([np.concatenate((model1.get_weights()[2][:rng], model2.get_weights()[2][rng:rng+1], model1.get_weights()[2][rng + 1:]), axis=None)]), model1.get_weights()[3]])
+                model1.get_weights()[1], np.asarray(np.concatenate((model1.get_weights()[2][:rng], model2.get_weights()[2][rng:rng+1], model1.get_weights()[2][rng + 1:]), axis=None).reshape((5,1))), model1.get_weights()[3]])
         child2 = np.asarray([np.asarray(
                 [np.concatenate((model2.get_weights()[0][0][:rng], model1.get_weights()[0][0][rng:rng+1], model2.get_weights()[0][0][rng + 1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:rng], model1.get_weights()[0][1][rng:rng+1], model2.get_weights()[0][1][rng + 1:]), axis=None), np.concatenate((model2.get_weights()[0][2][:rng], model1.get_weights()[0][2][rng:rng+1], model2.get_weights()[0][2][rng + 1:]), axis=None)]), 
-                model2.get_weights()[1], np.asarray([np.concatenate((model2.get_weights()[2][:rng], model1.get_weights()[2][rng:rng+1], model2.get_weights()[2][rng + 1:]), axis=None)]), model2.get_weights()[3]])
+                model2.get_weights()[1], np.asarray(np.concatenate((model2.get_weights()[2][:rng], model1.get_weights()[2][rng:rng+1], model2.get_weights()[2][rng + 1:]), axis=None).reshape((5,1))), model2.get_weights()[3]])
     else:
         child1 = np.asarray([np.asarray(
                 [np.concatenate((model1.get_weights()[0][0][:rng], model2.get_weights()[0][0][-1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:rng], model1.get_weights()[0][1][-1:]), axis=None),np.concatenate((model2.get_weights()[0][2][:rng], model1.get_weights()[0][2][-1:]), axis=None)]), 
-                model1.get_weights()[1], np.asarray([np.concatenate((model2.get_weights()[2][:rng], model1.get_weights()[2][-1:]), axis=None)]), model1.get_weights()[3]])
+                model1.get_weights()[1], np.asarray(np.concatenate((model2.get_weights()[2][:rng], model1.get_weights()[2][-1:]), axis=None).reshape((5,1))), model1.get_weights()[3]])
         child2 = np.asarray([np.asarray(
                 [np.concatenate((model2.get_weights()[0][0][:rng], model1.get_weights()[0][0][-1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:rng], model2.get_weights()[0][1][-1:]), axis=None),np.concatenate((model1.get_weights()[0][2][:rng], model2.get_weights()[0][2][-1:]), axis=None)]), 
-                model2.get_weights()[1], np.asarray([np.concatenate((model1.get_weights()[2][:rng], model2.get_weights()[2][-1:]), axis=None)]), model2.get_weights()[3]])
+                model2.get_weights()[1], np.asarray(np.concatenate((model1.get_weights()[2][:rng], model2.get_weights()[2][-1:]), axis=None).reshape((5,1))), model2.get_weights()[3]])
 
     return child1, child2
 
