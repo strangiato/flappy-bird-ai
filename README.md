@@ -2,14 +2,18 @@
 Flappy bird ai using screen capture
 
 ## Setup
-`pipenv install
+
+```
+pipenv install
+```
 
 On MacOS you may need to add backend: TkAgg to your virtualenv matplotlib file.  See instructions [here](https://stackoverflow.com/questions/49367013/pipenv-install-matplotlib)
 
 ## Run
 
-`pipenv run python main.py
-
+```
+pipenv run python main.py
+```
 ## Known Issues
 
 Scaling does weird shit.
