@@ -23,11 +23,12 @@ class StatTracker:
         print(self.top_avgs)
         plt.xlabel('generations') 
         # naming the y axis 
-        plt.ylabel('fitness (seconds') 
+        plt.ylabel('fitness (seconds)') 
         # giving a title to my graph 
         plt.title('Generational Fitness') 
         
         # show a legend on the plot 
+
         mgr = plt.get_current_fig_manager()
         mgr.window.geometry("+1200+200")
         plt.pause(0.05)
