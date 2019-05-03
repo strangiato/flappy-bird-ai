@@ -89,7 +89,7 @@ def test(bird):
                                                                       
 stat_tracker = bird_statistics.StatTracker()
 # training stuff
-population = training.init_models(100)
+population = training.init_models(10)
 time.sleep(3)
 
 for g in range(10000):
