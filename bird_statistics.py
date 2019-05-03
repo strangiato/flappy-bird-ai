@@ -28,6 +28,7 @@ class StatTracker:
         plt.title('Generational Fitness') 
         
         # show a legend on the plot 
+        plt.legend()
         mgr = plt.get_current_fig_manager()
         mgr.window.geometry("+1200+200")
         plt.pause(0.05)

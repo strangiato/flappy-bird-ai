@@ -29,45 +29,31 @@ def crossover_models(model1, model2):
 
 # hardcoded to # neurons in hidden layer
 def crossover_models_inner(model1, model2):
-    rng = 0 # round(random.uniform(0, 4))
-    print(rng) #np.concatenate((), axis=None)
-    print(model1.get_weights())
-    print(type(model1.get_weights()[0]))
-    print(type(model1.get_weights()[0][0]))
-    print(type(model1.get_weights()[0][0][0]))
-    print(model1.get_weights()[0][0][0])
+    rng = round(random.uniform(0, 4))
+
     
     if rng == 0:
         child1 =  np.asarray([np.asarray(
                 [np.concatenate((model2.get_weights()[0][0][:1], model1.get_weights()[0][0][1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:1], model1.get_weights()[0][1][1:]), axis=None), np.concatenate((model2.get_weights()[0][2][:1] + model1.get_weights()[0][2][1:]), axis=None)]), 
                 model1.get_weights()[1], np.asarray([np.concatenate((model2.get_weights()[2][:1] + model1.get_weights()[2][1:]), axis=None)]), model1.get_weights()[3]])
-        print(child1)
-        print(type(child1[0]))
-        print(type(child1[0][0]))
-        print(type(child1[0][0][0]))
-        print(child1[0][0][0])
+
         child2 = np.asarray([ np.asarray(
                     [np.concatenate((model1.get_weights()[0][0][:1], model2.get_weights()[0][0][1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:1], model2.get_weights()[0][1][1:]), axis=None), np.concatenate((model1.get_weights()[0][2][:1] + model2.get_weights()[0][2][1:]), axis=None)]), 
                 model2.get_weights()[1], np.asarray([np.concatenate((model1.get_weights()[2][:1], model2.get_weights()[2][1:]), axis=None)]), model2.get_weights()[3]])
-        print(child2)
     elif rng > 0 and rng < 4:
         child1 = np.asarray(
                 [[np.concatenate((model1.get_weights()[0][0][:rng], model2.get_weights()[0][0][rng:rng+1], model1.get_weights()[0][0][rng + 1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:rng], model2.get_weights()[0][1][rng:rng+1], model1.get_weights()[0][1][rng + 1:]), axis=None), np.concatenate((model1.get_weights()[0][2][:rng], model2.get_weights()[0][2][rng:rng+1], model1.get_weights()[0][2][rng + 1:]), axis=None)], 
                 model1.get_weights()[1], np.concatenate((model1.get_weights()[2][:rng], model2.get_weights()[2][rng:rng+1], model1.get_weights()[2][rng + 1:]), axis=None), model1.get_weights()[3]])
-        print(child1)
         child2 = np.asarray(
                 [[np.concatenate((model2.get_weights()[0][0][:rng], model1.get_weights()[0][0][rng:rng+1], model2.get_weights()[0][0][rng + 1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:rng], model1.get_weights()[0][1][rng:rng+1], model2.get_weights()[0][1][rng + 1:]), axis=None), np.concatenate((model2.get_weights()[0][2][:rng], model1.get_weights()[0][2][rng:rng+1], model2.get_weights()[0][2][rng + 1:]), axis=None)], 
                 model2.get_weights()[1], np.concatenate((model2.get_weights()[2][:rng], model1.get_weights()[2][rng:rng+1], model2.get_weights()[2][rng + 1:]), axis=None), model2.get_weights()[3]])
-        print(child2)
     else:
         child1 = np.asarray(
                 [[np.concatenate((model1.get_weights()[0][0][:rng], model2.get_weights()[0][0][-1:]), axis=None), np.concatenate((model1.get_weights()[0][1][:rng], model1.get_weights()[0][1][-1:]), axis=None),np.concatenate((model2.get_weights()[0][2][:rng], model1.get_weights()[0][2][-1:]), axis=None)], 
                 model1.get_weights()[1], np.concatenate((model2.get_weights()[2][:rng], model1.get_weights()[2][-1:]), axis=None), model1.get_weights()[3]])
-        print(child1)
         child2 = np.asarray(
                 [[np.concatenate((model2.get_weights()[0][0][:rng], model1.get_weights()[0][0][-1:]), axis=None), np.concatenate((model2.get_weights()[0][1][:rng], model2.get_weights()[0][1][-1:]), axis=None),np.concatenate((model1.get_weights()[0][2][:rng], model2.get_weights()[0][2][-1:]), axis=None)], 
                 model2.get_weights()[1], np.concatenate((model1.get_weights()[2][:rng], model2.get_weights()[2][-1:]), axis=None), model2.get_weights()[3]])
-        print(child2)
 
     return child1, child2
 
@@ -117,12 +103,14 @@ def breed(population):
             raw_weights.append(mutate(child2))
 
     # the first run messes up sometimes, so we do this not to sacrifice the best bird
-    population.append(old_population[-1:])
+    population.append(old_population[-1])
 
     for bird in old_population[:10]:
         population.append(bird)
 
-    for index, bird in enumerate(old_population[10:-1:]):
+    for index, bird in enumerate(old_population[10:-1]):
         bird.model.set_weights(raw_weights[index])
         population.append(bird)
+
+    # print(population)
     return population
