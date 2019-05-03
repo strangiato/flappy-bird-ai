@@ -2,9 +2,10 @@ import numpy as np
 import cv2
 
 
-def is_gamover(img, template):
+def is_gameover(img, template):
+
     # resize image
-    img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+    # img = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
     # crop imgage
     img = img[340:400, 90:240]
     # make image grayscale
