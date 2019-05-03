@@ -9,3 +9,7 @@ On MacOS you may need to add backend: TkAgg to your virtualenv matplotlib file. 
 ## Run
 
 `pipenv run python main.py
+
+## Known Issues
+
+Scaling does weird shit.
