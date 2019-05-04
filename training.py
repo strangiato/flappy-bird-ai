@@ -90,26 +90,29 @@ def breed(population):
     # old_population = old_population[:24]  # hardcoded todo fix
     print('top 10 birds')
     for bird in old_population[:10]:
-        print(bird.fitness)
+        print(bird.name, bird.fitness, bird.fitness)
     # reset population to add children to it
     population = []
     raw_weights = []
     for chad in range(10):
         for stacy in range(9):
             child1, child2 = crossover_models_inner(
-                old_population[chad].model, old_population[round(random.uniform(0, 9))].model)
+                old_population[chad].model, old_population[round(random.uniform(0, 49))].model)
             raw_weights.append(mutate(child1))
             raw_weights.append(mutate(child2))
 
     # the first run messes up sometimes, so we do this not to sacrifice the best bird
-    population.append(old_population[-1])
-
+    bird1 = old_population[-1]
+    bird1.set_weights(raw_weights[-1])
+    population.append(bird1)
     for bird in old_population[:10]:
         population.append(bird)
 
     for index, bird in enumerate(old_population[10:-1]):
         bird.model.set_weights(raw_weights[index])
         population.append(bird)
+    
+    
 
     # print(population)
     return population

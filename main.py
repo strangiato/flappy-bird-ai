@@ -89,7 +89,7 @@ def test(bird):
                                                                       
 stat_tracker = bird_statistics.StatTracker()
 # training stuff
-population = training.init_models(20)
+population = training.init_models(100)
 time.sleep(3)
 
 for g in range(10000):
@@ -113,6 +113,7 @@ for g in range(10000):
         species += 1
         print("gen ", g, "species ", i, " survived ", time_survived)
         population[i].fitness = time_survived
+        population[i].hiscore = population[i].hiscore - 1
         if time_survived > population[i].hiscore:
             population[i].hiscore = time_survived
 
