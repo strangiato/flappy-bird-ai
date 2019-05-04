@@ -11,12 +11,12 @@ def get_pipe_locations(img, template):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # find the bottom pipes in the image
     res = cv2.matchTemplate(img, template, cv2.TM_CCOEFF_NORMED)
-    threshold = .87
+    threshold = .855
     loc = np.where(res >= threshold)
     if len(loc[0]) > 0:
         # find closest pipe to the bird
         closestpipe = np.argmin(loc[1])
-        return (loc[1][closestpipe] + 100, loc[0][closestpipe] + 220)
+        return (loc[1][closestpipe] + 140, loc[0][closestpipe] + 217)
     else:
         return (450, 350)
 
